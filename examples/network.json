@@ -1,0 +1,145 @@
+{
+  "devices": [
+    {
+      "name": "r1",
+      "type": "router",
+      "interfaces": ["fa0/0", "fa0/1"],
+      "ip_configs": [
+        {
+          "interface": "fa0/0",
+          "ip": "192.168.1.1",
+          "netmask": "255.255.255.0",
+          "gateway": null
+        },
+        {
+          "interface": "fa0/1",
+          "ip": "10.0.0.1",
+          "netmask": "255.255.255.252",
+          "gateway": null
+        }
+      ]
+    },
+    {
+      "name": "r2",
+      "type": "router",
+      "interfaces": ["fa0/0", "fa0/1"],
+      "ip_configs": [
+        {
+          "interface": "fa0/0",
+          "ip": "10.0.0.2",
+          "netmask": "255.255.255.252",
+          "gateway": null
+        },
+        {
+          "interface": "fa0/1",
+          "ip": "192.168.2.1",
+          "netmask": "255.255.255.0",
+          "gateway": null
+        }
+      ]
+    },
+    {
+      "name": "s1",
+      "type": "switch",
+      "interfaces": ["fa0/1", "fa0/2"],
+      "ip_configs": [
+        {
+          "interface": "fa0/1",
+          "ip": "192.168.1.2",
+          "netmask": "255.255.255.0",
+          "gateway": null
+        },
+        {
+          "interface": "fa0/2",
+          "ip": "192.168.1.3",
+          "netmask": "255.255.255.0",
+          "gateway": null
+        }
+      ]
+    },
+    {
+      "name": "s2",
+      "type": "switch",
+      "interfaces": ["fa0/1", "fa0/2", "fa0/3"],
+      "ip_configs": [
+        {
+          "interface": "fa0/1",
+          "ip": "192.168.2.2",
+          "netmask": "255.255.255.0",
+          "gateway": null
+        },
+        {
+          "interface": "fa0/2",
+          "ip": "192.168.2.3",
+          "netmask": "255.255.255.0",
+          "gateway": null
+        }
+      ]
+    },
+    {
+      "name": "pc1",
+      "type": "pc",
+      "interfaces": ["fa0/0"],
+      "ip_configs": [
+        {
+          "interface": "fa0/0",
+          "ip": "192.168.1.10",
+          "netmask": "255.255.255.0",
+          "gateway": "192.168.1.1"
+        }
+      ]
+    },
+    {
+      "name": "pc2",
+      "type": "pc",
+      "interfaces": ["fa0/0"],
+      "ip_configs": [
+        {
+          "interface": "fa0/0",
+          "ip": "192.168.2.10",
+          "netmask": "255.255.255.0",
+          "gateway": "192.168.2.1"
+        }
+      ]
+    },
+    {
+      "name": "pc3",
+      "type": "pc",
+      "interfaces": ["fa0/0"],
+      "ip_configs": [
+        {
+          "interface": "fa0/0",
+          "ip": "192.168.2.20",
+          "netmask": "255.255.255.0",
+          "gateway": "192.168.2.1"
+        }
+      ]
+    }
+  ],
+  "connections": [
+    {
+      "from": {"device": "r1", "interface": "fa0/0"},
+      "to": {"device": "s1", "interface": "fa0/1"}
+    },
+    {
+      "from": {"device": "r1", "interface": "fa0/1"},
+      "to": {"device": "r2", "interface": "fa0/0"}
+    },
+    {
+      "from": {"device": "r2", "interface": "fa0/1"},
+      "to": {"device": "s2", "interface": "fa0/1"}
+    },
+    {
+      "from": {"device": "s1", "interface": "fa0/2"},
+      "to": {"device": "pc1", "interface": "fa0/0"}
+    },
+    {
+      "from": {"device": "s2", "interface": "fa0/2"},
+      "to": {"device": "pc2", "interface": "fa0/0"}
+    },
+    {
+      "from": {"device": "s2", "interface": "fa0/3"},
+      "to": {"device": "pc3", "interface": "fa0/0"}
+    }
+  ]
+}
